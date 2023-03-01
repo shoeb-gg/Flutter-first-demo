@@ -49,20 +49,46 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          TextField(
-            controller: _countryController,
-            decoration: InputDecoration(
-                hintText: 'bangladesh',
-                border: OutlineInputBorder(),
-                labelText: 'Country',
-                suffixIcon: IconButton(
-                    onPressed: () {
-                      _countryController.clear();
-                    },
-                    icon: const Icon(Icons.clear))),
-          )
+          Container(
+            margin: const EdgeInsets.only(top: 15, left: 15, right: 15),
+            child: TextField(
+              controller: _countryController,
+              decoration: InputDecoration(
+                  hintText: 'bangladesh',
+                  border: const OutlineInputBorder(),
+                  labelText: 'Country',
+                  suffixIcon: IconButton(
+                      onPressed: () {
+                        _countryController.clear();
+                      },
+                      icon: const Icon(Icons.clear))),
+            ),
+          ),
+          Container(
+              margin: const EdgeInsets.only(right: 15),
+              alignment: const Alignment(1.0, 0.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  debugPrint(_countryController.text);
+                },
+                child: const Text('GO!'),
+              )),
+          Container(
+            margin: const EdgeInsets.all(15),
+            child: Text(
+              'Bangladesh',
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            ),
+          ),
+          Container(
+              margin: const EdgeInsets.all(15),
+              alignment: const Alignment(-1.0, 0.0),
+              child: Text(
+                "Population: ",
+                style: const TextStyle(fontSize: 15),
+              ))
         ],
       ),
       floatingActionButton: FloatingActionButton(

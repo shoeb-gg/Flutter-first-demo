@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(const MyApp());
@@ -41,6 +44,21 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final _countryController = TextEditingController();
+  String country = "";
+
+  void fetchCountry() async {
+    final res = await http.get(Uri.parse(
+        'https://restcountries.com/v3.1/name/bangladesh?fullText=true'));
+
+    final data = jsonDecode(res.body);
+    final name = data['name'] as List;
+
+    // debugPrint(name);
+
+    setState(() {
+      country = data[0].name.common;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,9 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
               margin: const EdgeInsets.only(right: 15),
               alignment: const Alignment(1.0, 0.0),
               child: ElevatedButton(
-                onPressed: () {
-                  debugPrint(_countryController.text);
-                },
+                onPressed: fetchCountry,
                 child: const Text('GO!'),
               )),
           Container(
@@ -83,12 +99,29 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           Container(
-              margin: const EdgeInsets.all(15),
-              alignment: const Alignment(-1.0, 0.0),
-              child: Text(
-                "Population: ",
-                style: const TextStyle(fontSize: 15),
-              ))
+            margin: const EdgeInsets.only(top: 15, left: 15, right: 15),
+            alignment: const Alignment(-1.0, 0.0),
+            child: Text(
+              "Population: ",
+              style: const TextStyle(fontSize: 15),
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.only(top: 10, left: 15, right: 15),
+            alignment: const Alignment(-1.0, 0.0),
+            child: Text(
+              "Capital: ",
+              style: const TextStyle(fontSize: 15),
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.only(top: 10, left: 15, right: 15),
+            alignment: const Alignment(-1.0, 0.0),
+            child: Text(
+              "Currency: ",
+              style: const TextStyle(fontSize: 15),
+            ),
+          )
         ],
       ),
       floatingActionButton: FloatingActionButton(

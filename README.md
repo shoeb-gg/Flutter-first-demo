@@ -1,4 +1,4 @@
-# calculator
+# Country Explorer
 
 A new Flutter project.
 
